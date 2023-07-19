@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const ejs = require("ejs");
 const cors = require("cors");
 const morgan = require("morgan");
 const Form = require("./models/form");
@@ -48,15 +47,8 @@ app.post("/save", async (req, res) => {
   }
 });
 
-// ... Other routes and server setup ...
 
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
 
-app.get("/u/regs", async (req, res) => {
-})
 
 // normal testing route
 app.get("/", (req, res) => {
