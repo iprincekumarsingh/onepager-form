@@ -22,22 +22,17 @@ app.use(morgan("tiny"));
 
 app.post("/save", async (req, res) => {
   try {
-    const { name, email, phone } = req.body;
+    const { name, email, phone, selectedCountryCode } = req.body;
 
-    // Check for duplicates based on email and phone
-    const existingEmail = await Form.findOne({ email });
-    const existingPhone = await Form.findOne({ phone });
 
-    if (existingEmail) {
-      return res.status(400).json({ error: "Email already exists." });
-    }
+    console.log(selectedCountryCode);
 
-    if (existingPhone) {
-      return res.status(400).json({ error: "Phone number already exists." });
-    }
+
+    // contactinate the phone number with the country code with a + sign
+    const phoneNumber = selectedCountryCode + phone;
 
     // No duplicates found, proceed to save the data
-    const formData = new Form({ name, email, phone });
+    const formData = new Form({ name, email, phone: phoneNumber });
     await formData.save();
 
     return res.json({ message: "Form data saved successfully." });
